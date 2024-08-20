@@ -1,0 +1,44 @@
+plugins {
+    id 'java-gradle-plugin'
+    id 'jacoco'
+    id 'maven-publish'
+    id 'gradle-test-plugin' version '0.1'
+}
+
+group 'ru.clevertec'
+version '0.1'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.0'
+    testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.0'
+}
+
+test {
+    useJUnitPlatform()
+}
+
+test {
+    finalizedBy jacocoTestReport
+}
+jacocoTestReport {
+    dependsOn test
+}
+
+jacocoTestReport {
+    reports {
+        html.outputLocation = layout.buildDirectory.dir('jacocoHtml')
+    }
+}
+
+gradlePlugin {
+    plugins {
+        create("gradle-test-plugin") {
+            id = "gradle-test-plugin"
+            implementationClass = "ru.clevertec.testplugin.TestReportPlugin"
+        }
+    }
+}
