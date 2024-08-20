@@ -7,6 +7,7 @@ public class TestReportPlugin implements Plugin<Project> {
 
     @Override
     public void apply(Project target) {
-        target.getTasks().register("checkReport", TestReportTask.class).get().dependsOn("test");
+        target.getTasks().register("checkReport", TestReportTask.class).get().dependsOn("jacocoTestReport");
+        target.getPlugins().apply("jacoco");
     }
 }
