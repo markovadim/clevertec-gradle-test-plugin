@@ -1,3 +1,4 @@
+Plugin of check test report.  
 Public to local repository:  
 
     ./gradlew clean build
